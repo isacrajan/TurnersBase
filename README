@@ -1,0 +1,25 @@
+
+Mesh generation steps:
+
+1. blockMesh
+2. surfaceFeatureExtract
+3. snappyHexMesh -overwrite 
+4. rm -rf 0
+5. rm constant/polyMesh/cellLevel
+6. rm constant/polyMesh/pointLevel
+7. setSet -batch system/setSet.faces_amont_aval
+8. createPatch -overwrite -dict system/createPatchDict.amont_aval
+
+Initial conditions:
+
+9. rm -r 0
+10. cp -r 0.orig 0
+11. setFields
+
+Running the case:
+
+12. decomposePar (set number of processors for your machine in decomposeParDict)
+13. mpirun -np XX interFoam -parallel (replace XX with number of processors)
+14. reconstructPar
+15. paraFoam
+

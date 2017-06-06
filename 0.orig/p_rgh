@@ -1,0 +1,82 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      p_rgh;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [1 -1 -2 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+
+	amont_bas
+	{ 
+        	type            totalPressure;
+
+        	p0              uniform 12753; //1.3 m upstream
+
+        	U               U;
+        	phi             phi;
+        	rho             rho;
+        	psi             none;
+        	gamma           1;
+        	value           uniform 0;
+	}
+
+	aval_bas
+	{ 
+        	type            totalPressure;
+        	p0              uniform 2452; //0.25 m downstream 
+        	U               U;
+        	phi             phi;
+        	rho             rho;
+        	psi             none;
+        	gamma           1;
+        	value           uniform 0;
+	}
+	amont_haut
+	{ 
+    		type 		outletInlet; 
+    		outletValue 	uniform 0;
+    		value 		uniform 0;
+	}
+
+
+
+  
+	aval_haut
+	{
+    		type 		inletOutlet; 
+    		inletValue 	uniform 0;
+    		value 	uniform 0;
+	}
+
+  	haut
+  	{
+    		type 		inletOutlet; 
+    		inletValue 	uniform 0;
+    		value 	uniform 0;        	
+
+  	}
+  
+  	"wall_.*"
+  	{
+        	type            fixedFluxPressure;
+        	value           uniform 0;
+  	}
+}
+
+// ************************************************************************* //
