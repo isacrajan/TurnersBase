@@ -1,0 +1,13 @@
+ERRORS in OpenFOAM and ways to rectify it:
+------------------------------------------------------------------
+
+1. "Face 747 specified in set f2 is not an external face of the mesh.
+This application can only repatch existing boundary faces."
+
+SOLUTION: Make sure the xlimits in the setSet.faces_amont_aval exactly envelopes the face of the boundary and not more.
+
+EXAMPLE: 	//amont_bas
+		faceSet f0 new
+		faceSet f0 add boxToFace ( -0.01 0.0 0.0 )( 0.01 0.635 0.3175 )
+
+
